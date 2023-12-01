@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import LoginPage from 'pages/login/Index.jsx'
+import Dashboard from 'pages/dashboard/index.jsx'
+import ProjectView from 'pages/projectView/index.jsx'
+import 'dayjs/locale/pt-br'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <div style={{ backgroundColor: 'white', height: '100vh'}} className="App" >
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Navigate to='/login' />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='dashboard' element={<Dashboard />} />
+        <Route path='projectview/:id' element={<ProjectView />} />
+      </Routes>
+    </BrowserRouter>
+  </div>
+);
 
 export default App;
