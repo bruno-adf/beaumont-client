@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { Card, Typography, Stack, IconButton, Button } from '@mui/material'
-import { FaPlus, FaInfo } from 'react-icons/fa'
+import { Card, Typography, Stack, IconButton } from '@mui/material'
+import { FaPlus } from 'react-icons/fa'
 import InsumoDialog from './InsumoDialog'
-import { useSelector } from 'react-redux'
 import InsumoItem from './InsumoItem'
 
 function Insumos({ data }) {

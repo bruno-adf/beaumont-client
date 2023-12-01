@@ -1,17 +1,20 @@
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Stack } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Stack, CircularProgress } from '@mui/material'
 import { criarInsumo, updateInsumo } from 'api/insumos'
 import { Formik, Form, Field } from 'formik'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import CashField from 'components/CashField'
-import { numericFormatter } from 'react-number-format'
 
 function InsumoDialog({ open, edit, handleClose }) {
     
     const project = useSelector((state) => state.data.project)
+    const [load, setLoad] = useState(false)
     const formRef = useRef()
 
     const handleSubmit = async (values) => {
+        if(load) return
+        setLoad(true)
+
         const newValues = {
             ...values,
             valor: Number(String(values.valor).replace(/\D/g, ''))
@@ -22,6 +25,8 @@ function InsumoDialog({ open, edit, handleClose }) {
             await criarInsumo(newValues)
         }
         handleClose()
+
+        setLoad(false)
     }
 
     return (
@@ -130,7 +135,7 @@ function InsumoDialog({ open, edit, handleClose }) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancelar</Button>
-                <Button onClick={() => formRef.current.handleSubmit()}>Ok</Button>
+                <Button onClick={() => formRef.current.handleSubmit()}>{load ? <CircularProgress size={20}/> : 'Ok'}</Button>
             </DialogActions>
         </Dialog>
     )

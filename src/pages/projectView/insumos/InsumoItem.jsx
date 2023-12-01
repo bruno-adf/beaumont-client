@@ -1,22 +1,43 @@
-import React, { useState } from 'react'
-import { Stack, Button, IconButton, Grid, Typography, Card, useMediaQuery, useTheme, Checkbox, Dialog, DialogTitle, DialogContent } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Stack, Button, IconButton, Grid, Typography, Card, useMediaQuery, useTheme, Checkbox, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@mui/material'
 import { numericFormatter } from 'react-number-format'
 import { FaEdit, FaInfo, FaTrash } from 'react-icons/fa'
-import { toast } from 'sonner'
-import { deletarInsumo } from 'api/insumos'
+import { checkInsumo, deletarInsumo } from 'api/insumos'
+import { useSelector } from 'react-redux'
 
 function InsumoItem({ data, clickEdit }) {
 
     const theme = useTheme()
     const [info, setInfo] = useState(false)
+    const [checkLoad, setCheckLoad] = useState()
+    const [deleteLoad, setDeleteLoad] = useState(false)
     const small = useMediaQuery(theme.breakpoints.down('lg'))
 
     const handleDelete = async () => {
+        if(deleteLoad) return
+        setDeleteLoad(true)
+
         await deletarInsumo({ id: data._id, nome: data.nome })
+
+        setDeleteLoad(false)
     }
 
     const handleInfo = () => {
         setInfo(!info)
+    }
+
+    const handleEdit = () => {
+        clickEdit()
+    }
+
+    const handleChecked = async () => {
+        console.log('check')
+        if(checkLoad) return
+        setCheckLoad(true)
+
+        await checkInsumo(data._id, !data.check)
+
+        setCheckLoad(false)
     }
 
     return (
@@ -30,7 +51,7 @@ function InsumoItem({ data, clickEdit }) {
                 <Stack spacing={1}>
                     <Stack justifyContent={'space-between'} direction={'row'} alignItems={'center'}>
                         <Stack direction={'row'} spacing={2} alignItems={'center'}>
-                            <Checkbox sx={{ p: 0 }} size={'small'} />
+                            <Checkbox fontSize={'1rem'} checked={data.check} onClick={handleChecked} sx={{ p: 0 }} size={'small'}/>
                             <Typography>{data.nome} {data.quantidade}</Typography>
                         </Stack>
                         <Typography>{data.valor}</Typography>
@@ -57,22 +78,22 @@ function InsumoItem({ data, clickEdit }) {
                     </Grid>
                     <Grid container sx={{ width: '100%' }}>
                         <Grid item xs={4} sx={{ pr: '8px' }}>
-                            <Button onClick={clickEdit} sx={{ width: '100%' }} variant='contained'><FaEdit /></Button>
+                            <Button onClick={handleEdit} sx={{ width: '100%' }} variant='contained'><FaEdit /></Button>
                         </Grid>
                         <Grid item xs={4} sx={{ pr: '8px' }}>
                             <Button
                                 sx={{ width: '100%' }}
                                 variant='contained'
-                            ><FaInfo onClick={() => setInfo(true)}/></Button>
+                            ><FaInfo onClick={handleInfo}/></Button>
                         </Grid>
                         <Grid item xs={4}>
-                            <Button sx={{ width: '100%' }} variant='contained'><FaTrash /></Button>
+                            <Button onClick={handleDelete} sx={{ width: '100%' }} variant='contained'>{deleteLoad ? <CircularProgress size={20}/> : <FaTrash />}</Button>
                         </Grid>
                     </Grid>
                 </Stack>
             ) : (
                 <Stack direction={'row'} alignItems={'center'}>
-                    <Checkbox />
+                    <Checkbox checked={data.check} onChange={() => handleChecked()}/>
                     <Grid container>
                         <Grid xs={2} item>
                             <Stack>
@@ -112,19 +133,22 @@ function InsumoItem({ data, clickEdit }) {
                         </Grid>
                     </Grid>
                     <Stack direction={'row'} spacing={1}>
-                        <IconButton onClick={() => setInfo(true)}><FaInfo/></IconButton>
-                        <IconButton onClick={clickEdit} size='small' color='primary'><FaEdit /></IconButton>
-                        <IconButton onClick={handleDelete} size='small' color='primary'><FaTrash /></IconButton>
+                        <IconButton onClick={handleInfo} size='small' color='primary'><FaInfo/></IconButton>
+                        <IconButton onClick={handleEdit} size='small' color='primary'><FaEdit /></IconButton>
+                        <IconButton onClick={handleDelete} size='small' color='primary'>{deleteLoad ? <CircularProgress size={20}/> : <FaTrash />}</IconButton>
                     </Stack>
                 </Stack>
             )}
-            <Dialog>
+            <Dialog scroll='paper' open={info}>
                 <DialogTitle fontWeight={'Bold'}>
                     Informações adicionais
                 </DialogTitle>
                 <DialogContent>
-                    {data.info}
+                    {data.info ? data.info : 'Nenhuma informação disponível.'}
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setInfo(false)}>fechar</Button>
+                </DialogActions>
             </Dialog>
         </Card>
     )

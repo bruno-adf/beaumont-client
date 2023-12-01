@@ -75,3 +75,21 @@ export const deletarInsumo = async (insumo) => {
         toast.error('Erro do servidor.')
     })
 }
+
+export const checkInsumo = async (insumoId, check) => {
+    await axios.post(`${process.env.REACT_APP_API_PREFIX}insumos/check`,{
+        id: projectId(),
+        insumoId: insumoId,
+        check: check
+    },{
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token()}`
+        }
+    }).then((res) => {
+        store.dispatch(set(res.data))
+        toast.success('Salvo.')
+    }).catch((error) => {
+        toast.error('Erro do servidor.')
+    })
+}
