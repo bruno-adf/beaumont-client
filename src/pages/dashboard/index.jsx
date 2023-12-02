@@ -70,9 +70,9 @@ function Index() {
         <ListItem key={key} data={project} />
       )) : (
         <Stack spacing={1}>
-          <Skeleton opacity='' variant="rounded" width={'100%'} height={58.84}></Skeleton>
-          <Skeleton sx={{ opacity: 0.7 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
-          <Skeleton sx={{ opacity: 0.3 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
+          <Skeleton opacity='' variant="rounded" width={'100%'} height={small ? 114 : 58.84}></Skeleton>
+          <Skeleton sx={{ opacity: 0.7 }} variant="rounded" width={'100%'} height={small ? 114 : 58.84}></Skeleton>
+          <Skeleton sx={{ opacity: 0.3 }} variant="rounded" width={'100%'} height={small ? 114 : 58.84}></Skeleton>
         </Stack>
       )}
     </Container>
