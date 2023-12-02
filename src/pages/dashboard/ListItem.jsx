@@ -1,7 +1,5 @@
 import React from 'react'
 import { Card, Typography, Grid, Divider, useMediaQuery, useTheme, Stack } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { set, clear } from 'state/dataSlice'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import StatusIndicator from 'components/StatusIndicator'
@@ -9,7 +7,6 @@ import { numericFormatter } from 'react-number-format'
 
 function ListItem({ data }) {
 
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const theme = useTheme()
     const small = useMediaQuery(theme.breakpoints.down('lg'))
@@ -22,7 +19,7 @@ function ListItem({ data }) {
         <Card
             sx={{
                 p: 2,
-                my: 1,
+                mb: 1,
                 '&:hover': {
                     cursor: 'pointer',
                     bgcolor: 'action.hover'

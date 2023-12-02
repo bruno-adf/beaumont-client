@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { Container, Typography, Grid, Divider } from '@mui/material'
+import { Container, Typography, Grid, Divider, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material'
 import ListItem from './ListItem'
 import NavBar from 'components/NavBar'
 import { getProjetos } from 'api/projetos'
@@ -9,6 +9,8 @@ import { clear } from 'state/dataSlice'
 
 function Index() {
 
+  const theme = useTheme()
+  const small = useMediaQuery(theme.breakpoints.down('lg'))
   const list = useSelector((state) => state.data.list)
   const dispatch = useDispatch()
   const isAuth = Boolean(useSelector((state) => state.auth.token))
@@ -19,10 +21,11 @@ function Index() {
       dispatch(clear())
     }
     get()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return isAuth === false ? <Navigate to='/login' /> : (
-    <Container bgcolor='background.default' sx={{ py: 15, height: '100vh' }}>
+    <Container bgcolor='background.default' sx={{ py: small ? 10 : 15, height: '100vh' }}>
       <NavBar create>
         <Container sx={{
           width: '100%',
@@ -63,10 +66,15 @@ function Index() {
           </Grid>
         </Container>
       </NavBar>
-      {list && list.map((project, key) => (
+      {list ? list.map((project, key) => (
         <ListItem key={key} data={project} />
-      ))
-      }
+      )) : (
+        <Stack spacing={1}>
+          <Skeleton opacity='' variant="rounded" width={'100%'} height={58.84}></Skeleton>
+          <Skeleton sx={{ opacity: 0.7 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
+          <Skeleton sx={{ opacity: 0.3 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
+        </Stack>
+      )}
     </Container>
   )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, Typography, Stack } from '@mui/material'
-import { useSelector } from 'react-redux'
 import StatusList from 'StatusList'
 import dayjs from 'dayjs'
 import { FaAngleDoubleRight } from 'react-icons/fa'

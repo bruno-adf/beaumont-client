@@ -1,26 +1,19 @@
 import React, { useRef, useState } from 'react'
-import { Card, Typography, Stack, TextField, Box, Button, IconButton, CircularProgress } from '@mui/material'
+import { Card, Typography, Stack, TextField, Box, IconButton, CircularProgress } from '@mui/material'
 import { FaCheck, FaEdit, FaTimes } from 'react-icons/fa'
 import { Formik, Field, Form } from 'formik'
-import { useSelector, useDispatch } from 'react-redux'
 import CelphoneField from 'components/CelphoneField'
-import { set } from 'state/dataSlice'
 import dataSchema from 'validation/dadosCliente'
-import { toast } from 'sonner'
 import { updateDadosCliente } from 'api/dadoscliente'
 import { patternFormatter } from 'react-number-format'
 
 function DadosCliente({ data }) {
-
-    const project = useSelector((state) => state.data.project)
-    const token = useSelector((state) => state.auth.token)
-    const userId = useSelector((state) => state.auth.user._id)
+    
     const [edit, setEdit] = useState()
     const [saving, setSaving] = useState()
     const formRef = useRef()
-    const dispatch = useDispatch()
 
-    const handleEdit = async (values, onSubmitProps) => {
+    const handleEdit = async (values) => {
         if (saving) return
         setSaving(true)
 
@@ -125,7 +118,7 @@ function DadosCliente({ data }) {
                     <IconButton onClick={() => setEdit(true)} color='primary' sx={{width: '40px', height: '40px'}}><FaEdit/></IconButton>
                 </Stack>
                 <Stack spacing={'10px'}>
-                    <Typography variant='h6' fontWeight={'Bold'}>Dados do cliente</Typography>
+                    <Typography variant='h6' fontWeight={'Bold'}>Dados do cliente</Typography>  
                     <Box>
                         <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Celular</Typography>
                         <Typography>{data.celular ? patternFormatter(String(data.celular), { format: '(##) #####-####' }) : '---'}</Typography>

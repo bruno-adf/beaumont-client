@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { Card, Typography, Box, TextField, InputAdornment, IconButton, Stack, CircularProgress } from '@mui/material'
-import { NumericFormat } from 'react-number-format'
-import { useSelector, useDispatch } from 'react-redux'
+import { Card, Typography, Box, TextField, IconButton, Stack, CircularProgress } from '@mui/material'
+import { useSelector } from 'react-redux'
 import { numericFormatter } from 'react-number-format'
 import StatusIndicator from 'components/StatusIndicator'
 import { Formik, Form, Field } from 'formik'
@@ -14,12 +13,9 @@ import CashField from 'components/CashField'
 function DadosProjeto({ data }) {
 
     const project = useSelector((state) => state.data.project)
-    const token = useSelector((state) => state.auth.token)
-    const userId = useSelector((state) => state.auth.user._id)
     const [edit, setEdit] = useState(false)
     const [saving, setSaving] = useState(false)
     const formRef = useRef()
-    const dispatch = useDispatch()
 
     const handleEdit = async (values) => {
         if (saving) return
