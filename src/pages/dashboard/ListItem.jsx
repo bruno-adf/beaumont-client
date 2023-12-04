@@ -53,53 +53,67 @@ function ListItem({ data }) {
             ) : (
             <Grid container>
                 <Grid item xs={3}>
-                    <Typography>
+                    <Typography fontWeight={'Bold'}>
                         {data.dadosCliente.nome}
                     </Typography>
-                </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
-                <Grid item xs={1}>
-                    <Typography fontSize='0.8rem' sx={{ textAlign: 'center' }}>
-                        {data.dadosCliente.ambientes ? data.dadosCliente.ambientes : '---'}
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Nome
                     </Typography>
                 </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
                 <Grid item xs={1}>
-                    <Typography fontSize='0.8rem' sx={{ textAlign: 'center' }}>
+                    <Typography fontSize='0.8rem'>
+                        {data.dadosCliente.ambientes ? data.dadosCliente.ambientes : '---'}
+                    </Typography>
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Ambientes
+                    </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <Typography fontSize='0.8rem'>
                         {data.dadosProjeto.inicio ? dayjs(data.dadosProjeto.inicio).format('DD/MM/YYYY') : '---'}
                     </Typography>
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Início
+                    </Typography>
                 </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
                 <Grid item xs={1}>
-                    <Typography fontSize='0.8rem' sx={{ textAlign: 'center' }}>
+                    <Typography fontSize='0.8rem'>
                         {data.dadosProjeto.entrega ? dayjs(data.dadosProjeto.entrega).format('DD/MM/YYYY') : '---'}
                     </Typography>
-                </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
-                <Grid item xs={1}>
-                    <Typography fontSize='0.8rem' sx={{ textAlign: 'center' }}>
-                        {data.custos.insumos ? data.custos.insumos : '---'}
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Entrega
                     </Typography>
                 </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
                 <Grid item xs={1}>
-                    <Typography fontSize='0.8rem' sx={{ textAlign: 'center' }}>
-                        {data.dadosProjeto.valor_total ? numericFormatter(String(data.dadosProjeto.valor_total), { prefix: 'R$' }) : '---'}
+                    <Typography fontSize='0.8rem'>
+                        {data.custos.insumos ? numericFormatter(String(data.custos.insumos / 100), { prefix: 'R$', decimalSeparator: ',', thousandSeparator: '.', fixedDecimalScale: true, decimalScale: 2 }) : '---'}
+                    </Typography>
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Insumos
                     </Typography>
                 </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
+                <Grid item xs={1}>
+                    <Typography fontSize='0.8rem'>
+                        {data.dadosProjeto.valor_total ? numericFormatter(String(data.dadosProjeto.valor_total / 100), { prefix: 'R$', decimalSeparator: ',', thousandSeparator: '.', fixedDecimalScale: true, decimalScale: 2 }) : '---'}
+                    </Typography>
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Total
+                    </Typography>
+                </Grid>
                 <Grid item xs={2}>
-                    <Typography fontSize='0.8rem' sx={{ textAlign: 'center' }}>
+                    <Typography fontSize='0.8rem'>
                         {data.dadosCliente.ambientes ? data.dadosCliente.ambientes : '---'}
                     </Typography>
+                    <Typography color={'grey'} fontSize='0.8rem'>
+                        Responsáveis
+                    </Typography>
                 </Grid>
-                <Divider color='white' orientation='vertical' flexItem sx={{ mr: '-1px' }} />
                 <Grid
                 item
                 xs={2}
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: 'row',
                     alignItems: 'center'
                 }}>
                     <StatusIndicator index={data.dadosProjeto.status}/>

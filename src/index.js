@@ -7,9 +7,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { Toaster } from 'sonner'
 
+const darkMode = store.getState().data.darkMode
+
 const theme = createTheme({
   palette: {
-    mode: 'light'
+    mode: darkMode ? 'dark' : 'light',
+    primary: {
+      main: '#002837',
+      dark: '#BC9275'
+    },
+    background: {
+      default: '#E7E7E7',
+    }
   }
 })
 

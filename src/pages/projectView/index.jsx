@@ -28,7 +28,7 @@ function Index() {
     }, [])
 
     return !isAuth ? <Navigate to='/login' /> : (
-        <Container sx={{ py: 10 }}>
+        <Container sx={{ py: 10, bgcolor: 'background.default' }}>
             <NavBar />
             {project ? (!smallScreen ? (
                 <Stack spacing={2} sx={{ my: 5 }}>

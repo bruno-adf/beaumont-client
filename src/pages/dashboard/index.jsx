@@ -25,9 +25,9 @@ function Index() {
   }, [])
 
   return isAuth === false ? <Navigate to='/login' /> : (
-    <Container bgcolor='background.default' sx={{ py: small ? 10 : 15, height: '100vh' }}>
+    <Container sx={{ bgcolor: 'background.default', py: small ? 10 : 15, height: '100vh' }}>
       <NavBar create>
-        <Container sx={{
+        {/* <Container sx={{
           width: '100%',
           py: '5px'
         }}>
@@ -64,7 +64,7 @@ function Index() {
               <Typography sx={{ textAlign: 'center', fontWeight: 'Bold' }}>Status</Typography>
             </Grid>
           </Grid>
-        </Container>
+        </Container> */}
       </NavBar>
       {list ? list.map((project, key) => (
         <ListItem key={key} data={project} />
