@@ -34,6 +34,7 @@ function NavBar(props) {
 
     const handleMode = () => {
         store.dispatch(darkMode())
+        console.log('alternado')
     }
 
     const handleDelete = async () => {

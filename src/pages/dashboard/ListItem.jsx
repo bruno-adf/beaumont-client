@@ -31,7 +31,7 @@ function ListItem({ data }) {
             {small ? (
             <Grid container>
                 <Grid item xs={6}>
-                    <Stack direction={'column'} justifyContent={'space-between'} sx={{height: '100%'}}>
+                    <Stack direction={'column'} justifyContent={'space-evenly'} sx={{height: '100%'}}>
                         <Typography fontWeight={'Bold'}>
                             {data.dadosCliente.nome}
                         </Typography>
@@ -41,12 +41,12 @@ function ListItem({ data }) {
                 <Divider color='white' orientation='vertical' flexItem sx={{ mx: '15px', height: '80px', alignSelf: 'center' }} />
                 <Grid item>
                     <Stack>
-                        <Typography fontSize={'small'}>Inicio:</Typography>
                         <Typography fontSize={'small'}>{data.dadosProjeto.inicio ? dayjs(data.dadosProjeto.inicio).format('DD/MM/YYYY') : '---'}</Typography>
+                        <Typography fontSize={'small'} color={'grey'}>Inicio</Typography>
                     </Stack>
                     <Stack>
-                        <Typography fontSize={'small'}>Entrega:</Typography>
                         <Typography fontSize={'small'}>{data.dadosProjeto.entrega ? dayjs(data.dadosProjeto.entrega).format('DD/MM/YYYY') : '---'}</Typography>
+                        <Typography fontSize={'small'} color={'grey'}>Entrega</Typography>
                     </Stack>
                 </Grid>
             </Grid>

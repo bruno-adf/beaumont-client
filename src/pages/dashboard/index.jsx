@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { Container, Typography, Grid, Divider, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material'
+import { Container, Skeleton, Stack, useMediaQuery, useTheme, Box, Tabs, Tab, TabPanel, IconButton } from '@mui/material'
 import ListItem from './ListItem'
 import NavBar from 'components/NavBar'
 import { getProjetos } from 'api/projetos'
 import { clear } from 'state/dataSlice'
+import { FaFilter } from 'react-icons/fa'
 
 function Index() {
 
@@ -24,8 +25,24 @@ function Index() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const [tab, setTab] = useState(0)
+
+  const handleChange = (event, newValue) => {
+    setTab(newValue)
+  }
+
+  const TabSection = (props) => {
+    const { index, value, children } = props
+
+    return (
+      <div hidden={index !== value}>
+        {children}
+      </div>
+    )
+  }
+
   return isAuth === false ? <Navigate to='/login' /> : (
-    <Container sx={{ bgcolor: 'background.default', py: small ? 10 : 15, height: '100vh' }}>
+    <Container sx={{ bgcolor: 'background.default', py: 10, height: '100vh' }}>
       <NavBar create>
         {/* <Container sx={{
           width: '100%',
@@ -66,15 +83,29 @@ function Index() {
           </Grid>
         </Container> */}
       </NavBar>
-      {list ? list.map((project, key) => (
-        <ListItem key={key} data={project} />
-      )) : (
-        <Stack spacing={1}>
-          <Skeleton opacity='' variant="rounded" width={'100%'} height={58.84}></Skeleton>
-          <Skeleton sx={{ opacity: 0.7 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
-          <Skeleton sx={{ opacity: 0.3 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
-        </Stack>
-      )}
+      <Stack justifyContent={'space-between'} direction={'row'} sx={{borderBottom: 1, borderColor: 'divider', mb: 2}}>
+        <Tabs value={tab} onChange={handleChange}>
+          <Tab label='Projetos'/>
+          <Tab label='Seus projetos'/>
+        </Tabs>
+        <IconButton color='primary' size='small'>
+          <FaFilter/>
+        </IconButton>
+      </Stack>
+      <TabSection index={0} value={tab}>
+        {list ? list.map((project, key) => (
+          <ListItem key={key} data={project} />
+        )) : (
+          <Stack spacing={1}>
+            <Skeleton opacity='' variant="rounded" width={'100%'} height={58.84}></Skeleton>
+            <Skeleton sx={{ opacity: 0.7 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
+            <Skeleton sx={{ opacity: 0.3 }} variant="rounded" width={'100%'} height={small ? 58.84 : 114}></Skeleton>
+          </Stack>
+        )}
+      </TabSection>
+      <TabSection index={1} value={tab}>
+          aaa
+      </TabSection>
     </Container>
   )
 }

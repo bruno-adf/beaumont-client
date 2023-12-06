@@ -21,6 +21,7 @@ export const dataSlice = createSlice({
         },
         darkMode: (state) => {
             state.dark = !state.dark
+            console.log(state.dark)
         }
     }
 });
