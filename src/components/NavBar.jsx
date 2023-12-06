@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { deletarProjeto, criarProjeto } from 'api/projetos.js'
 import { store } from 'state/store'
 import { setLogout } from 'state/authSlice'
+import { darkMode } from 'state/dataSlice'
 
 function NavBar(props) {
 
@@ -29,6 +30,11 @@ function NavBar(props) {
 
     const handleLogout = () => {
         store.dispatch(setLogout())
+    }
+
+    const handleMode = () => {
+        store.dispatch(darkMode())
+        console.log('alternado')
     }
 
     const handleDelete = async () => {
@@ -94,7 +100,9 @@ function NavBar(props) {
                                         <MenuItem onClick={handleDelete}>
                                             Excluir projeto
                                         </MenuItem>
-                                    }
+                                    }<MenuItem onClick={handleMode}>
+                                    Alternar tema
+                                    </MenuItem>
                         </Menu>
                     </Grid>
                 </Grid>
