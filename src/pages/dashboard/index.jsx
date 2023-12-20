@@ -83,7 +83,6 @@ function Index() {
           </Grid>
         </Container> */}
       </NavBar>
-<<<<<<< HEAD
       {list ? list.map((project, key) => (
         <ListItem key={key} data={project} />
       )) : (
@@ -93,7 +92,6 @@ function Index() {
           <Skeleton sx={{ opacity: 0.3 }} variant="rounded" width={'100%'} height={small ? 114 : 58.84}></Skeleton>
         </Stack>
       )}
-=======
       <Stack justifyContent={'space-between'} direction={'row'} sx={{borderBottom: 1, borderColor: 'divider', mb: 2}}>
         <Tabs value={tab} onChange={handleChange}>
           <Tab label='Projetos'/>
@@ -117,7 +115,6 @@ function Index() {
       <TabSection index={1} value={tab}>
           aaa
       </TabSection>
->>>>>>> dev
     </Container>
   )
 }
