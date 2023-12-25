@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Typography, Grid, Divider, useMediaQuery, useTheme, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import StatusIndicator from 'components/StatusIndicator'
+import StatusIndicator from 'components/common/StatusIndicator'
 import { numericFormatter } from 'react-number-format'
 
 function ListItem({ data }) {

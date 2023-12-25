@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Stack, Button, IconButton, Grid, Typography, Card, useMediaQuery, useTheme, Checkbox, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@mui/material'
 import { numericFormatter } from 'react-number-format'
 import { FaEdit, FaInfo, FaTrash } from 'react-icons/fa'
-import { checkInsumo, deletarInsumo } from 'api/insumos'
+import { checkInsumo, deletarInsumo } from 'services/insumos'
 
 function InsumoItem({ data, clickEdit }) {
 

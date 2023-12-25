@@ -26,11 +26,11 @@ export const login = async (values) => {
         )
         return true
     }).catch((error) => {
-        console.log(error.response.status)
-        if(error.response.status === 400)
-        toast.error('Email ou senha inválidos.')
-        else
-        toast.error('Erro do servidor.')
+        console.log(error.response)
+        // if(error.response.status === 400)
+        // toast.error('Email ou senha inválidos.')
+        // else
+        // toast.error('Erro do servidor.')
         return false
     })
 }

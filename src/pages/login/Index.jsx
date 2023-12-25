@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material'
-import LoginForm from './LoginForm';
+import LoginForm from '../../components/login/LoginForm';
 
 function Index() {
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Card, Typography, Stack, IconButton } from '@mui/material'
 import { FaPlus } from 'react-icons/fa'
-import InsumoDialog from './InsumoDialog'
-import InsumoItem from './InsumoItem'
+import InsumoDialog from '../InsumoDialog'
+import InsumoItem from '../InsumoItem'
 
 function Insumos({ data }) {
 

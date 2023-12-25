@@ -1,31 +1,19 @@
-import React, { useRef, useState } from 'react'
-import { Card, Typography, Stack, TextField, Box, Button, IconButton, CircularProgress } from '@mui/material'
+import React, { useRef } from 'react'
+import {
+    Card,
+    Typography,
+    Stack,
+    TextField,
+    Box,
+    IconButton,
+    CircularProgress
+} from '@mui/material'
 import { FaCheck, FaEdit, FaTimes } from 'react-icons/fa'
 import { Formik, Field, Form } from 'formik'
-import { useSelector, useDispatch } from 'react-redux'
-import { set } from 'state/dataSlice'
-import dataSchema from 'validation/custos'
-import { updateCustos } from 'api/custos'
 
-function Custos({ data, projectId, reload }) {
+function Custos({ data, setEdit, handleCancel, handleEdit, saving, edit, schema }) {
 
-    const [edit, setEdit] = useState()
-    const [saving, setSaving] = useState()
     const formRef = useRef()
-
-    const handleEdit = async (values, onSubmitProps) => {
-
-        if (saving) return
-        setSaving(true)
-
-        await updateCustos(values)
-
-        setEdit(!edit)
-        setSaving(false)
-    }
-    const handleCancel = () => {
-        setEdit(!edit)
-    }
 
     return (
         <Card
@@ -42,11 +30,29 @@ function Custos({ data, projectId, reload }) {
                     <Typography variant='h6' fontWeight={'Bold'}>Custos</Typography>
                     {edit ?
                         <Stack direction='row' spacing={2}>
-                            <IconButton color='primary' sx={{ width: '40px', height: '40px' }} onClick={handleCancel}><FaTimes /></IconButton>
-                            <IconButton color='primary' sx={{ width: '40px', height: '40px' }} onClick={() => formRef.current.handleSubmit()}>{saving ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <FaCheck />}</IconButton>
+                            <IconButton
+                                color='primary'
+                                sx={{ width: '40px', height: '40px' }}
+                                onClick={handleCancel}
+                            >
+                                <FaTimes />
+                            </IconButton>
+                            <IconButton
+                                color='primary'
+                                sx={{ width: '40px', height: '40px' }}
+                                onClick={() => formRef.current.handleSubmit()}
+                            >
+                                {saving ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <FaCheck />}
+                            </IconButton>
                         </Stack>
                         :
-                        <IconButton onClick={() => setEdit(true)} color='primary' sx={{ width: '40px', height: '40px' }}><FaEdit /></IconButton>
+                        <IconButton
+                            onClick={() => setEdit(true)}
+                            color='primary'
+                            sx={{ width: '40px', height: '40px' }}
+                        >
+                            <FaEdit />
+                        </IconButton>
                     }
                 </Stack>
                 {edit ? (
@@ -61,7 +67,7 @@ function Custos({ data, projectId, reload }) {
                             insumos: data.insumos ? String(data.insumos) : "",
                             total: data.total ? String(data.total) : ""
                         }}
-                        validationSchema={dataSchema}
+                        validationSchema={schema}
                         onSubmit={handleEdit}
                     >
                         {({ errors, touched }) => (
@@ -138,31 +144,31 @@ function Custos({ data, projectId, reload }) {
                     <Stack spacing={'10px'}>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Projetistas</Typography>
-                            <Typography>{data.projetistas ? data.projetistas : '---'}</Typography>
+                            <Typography>{data?.projetistas ? data.projetistas : '---'}</Typography>
                         </Box>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Montador</Typography>
-                            <Typography>{data.montador ? data.montador : '---'}</Typography>
+                            <Typography>{data?.montador ? data.montador : '---'}</Typography>
                         </Box>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Frete</Typography>
-                            <Typography>{data.frete ? data.frete : '---'}</Typography>
+                            <Typography>{data?.frete ? data.frete : '---'}</Typography>
                         </Box>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Fábrica</Typography>
-                            <Typography>{data.fabrica ? data.fabrica : '---'}</Typography>
+                            <Typography>{data?.fabrica ? data.fabrica : '---'}</Typography>
                         </Box>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Impostos</Typography>
-                            <Typography>{data.impostos ? data.impostos : '---'}</Typography>
+                            <Typography>{data?.impostos ? data.impostos : '---'}</Typography>
                         </Box>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Insumos</Typography>
-                            <Typography>{data.insumos ? data.insumos : '---'}</Typography>
+                            <Typography>{data?.insumos ? data.insumos : '---'}</Typography>
                         </Box>
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Total</Typography>
-                            <Typography>{data.total ? data.total : '---'}</Typography>
+                            <Typography>{data?.total ? data.total : '---'}</Typography>
                         </Box>
                     </Stack>
                 )}

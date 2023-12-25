@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { Container, Skeleton, Stack, useMediaQuery, useTheme, Box, Tabs, Tab, TabPanel, IconButton } from '@mui/material'
-import ListItem from './ListItem'
-import NavBar from 'components/NavBar'
-import { getProjetos } from 'api/projetos'
+import {
+  Container,
+  Skeleton,
+  Stack,
+  useMediaQuery,
+  useTheme,
+  Tabs,
+  Tab,
+  IconButton
+} from '@mui/material'
+import ListItem from '../../components/dashboard/ListItem'
+import NavBar from 'components/common/Navbar'
+import { getProjetos } from 'services/projetos'
 import { clear } from 'state/dataSlice'
 import { FaFilter } from 'react-icons/fa'
 

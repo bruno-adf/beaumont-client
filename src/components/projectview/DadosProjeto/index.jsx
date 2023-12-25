@@ -2,15 +2,20 @@ import React, { useRef, useState } from 'react'
 import { Card, Typography, Box, TextField, IconButton, Stack, CircularProgress } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { numericFormatter } from 'react-number-format'
-import StatusIndicator from 'components/StatusIndicator'
+import StatusIndicator from 'components/common/StatusIndicator'
 import { Formik, Form, Field } from 'formik'
 import dataSchema from 'validation/dadosProjetoSchema'
 import dayjs from 'dayjs'
 import { FaEdit, FaTimes, FaCheck } from 'react-icons/fa'
-import { updateDadosProjeto } from 'api/dadosprojeto'
-import CashField from 'components/CashField'
+import { updateDadosProjeto } from 'services/dadosprojeto'
+import CashField from 'components/common/CashField'
+
+import TagInputContainer from '../TagInput/container'
+import TagInputPresentation from '../TagInput'
 
 function DadosProjeto({ data }) {
+
+    const TagInput = TagInputContainer(TagInputPresentation)
 
     const project = useSelector((state) => state.data.project)
     const [edit, setEdit] = useState(false)
@@ -69,7 +74,7 @@ function DadosProjeto({ data }) {
                         initialValues={{
                             inicio: data.inicio ? dayjs(data.inicio).format('YYYY-MM-DD') : dayjs(Date.now()).format('YYYY-MM-DD'),
                             entrega: data.entrega ? dayjs(data.entrega).format('YYYY-MM-DD') : dayjs(Date.now()).format('YYYY-MM-DD'),
-                            ambientes: data.ambientes ? String(data.ambientes) : "",
+                            ambientes: data.ambientes ? String(data.ambientes) : [],
                             lote: data.lote ? data.lote : "",
                             projetistas: data.projetistas ? String(data.projetistas) : "",
                             valor_total: data.valor_total ? (data.valor_total / 100) : 0
@@ -101,15 +106,6 @@ function DadosProjeto({ data }) {
                                         type='date'
                                     />
                                     <Field
-                                        label='Ambientes'
-                                        name="ambientes"
-                                        as={TextField}
-                                        error={Boolean(touched.ambientes) && Boolean(errors.ambientes)}
-                                        helperText={touched.ambientes && errors.ambientes}
-                                        variant='standard'
-                                        size='small'
-                                    />
-                                    <Field
                                         label='Lote'
                                         name="lote"
                                         as={TextField}
@@ -127,18 +123,6 @@ function DadosProjeto({ data }) {
                                         variant='standard'
                                         size='small'
                                     />
-                                    {/* <Field
-                                        label='Valor total'
-                                        name="valor_total"
-                                        as={TextField}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-                                        }}
-                                        error={Boolean(touched.valor_total) && Boolean(errors.valor_total)}
-                                        helperText={touched.valor_total && errors.valor_total}
-                                        variant='standard'
-                                        size='small'
-                                    /> */}
                                     <Field
                                         label='Valor total'
                                         name="valor_total"
@@ -146,15 +130,11 @@ function DadosProjeto({ data }) {
                                         error={Boolean(touched.valor_total) && Boolean(errors.valor_total)}
                                         helperText={touched.valor_total && errors.valor_total}
                                     />
-                                    {/* <Field
-                                        label='Valor total'
-                                        name="valor_total"
-                                        as={TextField}
-                                        error={Boolean(touched.valor_total) && Boolean(errors.valor_total)}
-                                        helperText={touched.valor_total && errors.valor_total}
-                                        variant='standard'
-                                        size='small'
-                                    /> */}
+                                    <Field
+                                        label='Ambientes'
+                                        name="ambientes"
+                                        as={TagInput}
+                                    />
                                 </Stack>
                             </Form>
                         )}
@@ -170,10 +150,6 @@ function DadosProjeto({ data }) {
                             <Typography>{data.entrega ? dayjs(data.entrega).format('DD/MM/YYYY') : '---'}</Typography>
                         </Box>
                         <Box>
-                            <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Ambientes</Typography>
-                            <Typography>{data.ambientes.length !== 0 ? data.ambientes : '---'}</Typography>
-                        </Box>
-                        <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Lote</Typography>
                             <Typography>{data.lote ? data.lote : '---'}</Typography>
                         </Box>
@@ -184,6 +160,10 @@ function DadosProjeto({ data }) {
                         <Box>
                             <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Valor total</Typography>
                             <Typography>{data.valor_total ? numericFormatter(String(data.valor_total / 100), { prefix: 'R$', decimalSeparator: ',', thousandSeparator: '.', fixedDecimalScale: true, decimalScale: 2 }) : '---'}</Typography>
+                        </Box>
+                        <Box>
+                            <Typography color={'grey'} sx={{ fontSize: '0.8rem' }}>Ambientes</Typography>
+                            <Typography>{data.ambientes.length !== 0 ? data.ambientes : '---'}</Typography>
                         </Box>
                     </Stack>
                 )}

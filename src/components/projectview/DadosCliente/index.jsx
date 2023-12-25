@@ -1,34 +1,13 @@
-import React, { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Card, Typography, Stack, TextField, Box, IconButton, CircularProgress } from '@mui/material'
 import { FaCheck, FaEdit, FaTimes } from 'react-icons/fa'
 import { Formik, Field, Form } from 'formik'
-import CelphoneField from 'components/CelphoneField'
-import dataSchema from 'validation/dadosCliente'
-import { updateDadosCliente } from 'api/dadoscliente'
+import CelphoneField from 'components/common/CelphoneField'
 import { patternFormatter } from 'react-number-format'
 
-function DadosCliente({ data }) {
-    
-    const [edit, setEdit] = useState()
-    const [saving, setSaving] = useState()
+function DadosCliente({ data, handleEdit, handleCancel, edit, setEdit, saving, schema }) {
+
     const formRef = useRef()
-
-    const handleEdit = async (values) => {
-        if (saving) return
-        setSaving(true)
-
-        const newValues = {
-            ...values,
-            celular: Number(String(values.celular).replace(/\D/g, ''))
-        }
-        await updateDadosCliente(newValues)
-       
-        setEdit(!edit)
-        setSaving(false)
-    }
-    const handleCancel = () => {
-        setEdit(!edit)
-    }
 
   return (
     <Card
@@ -57,7 +36,7 @@ function DadosCliente({ data }) {
                     endereco: data.endereco ? String(data.endereco) : "",
                     email: data.email ? String(data.email) : ""
                 }}
-                validationSchema={dataSchema}
+                validationSchema={schema}
                 onSubmit={handleEdit}
                 >
                     {({errors, touched}) => (
@@ -115,7 +94,7 @@ function DadosCliente({ data }) {
             <Stack spacing={'auto'} height={'100%'}>
                 <Stack direction='row' spacing={'auto'}>
                     <Typography variant='h4' fontWeight={'Bold'}>{data.nome}</Typography>
-                    <IconButton onClick={() => setEdit(true)} color='primary' sx={{width: '40px', height: '40px'}}><FaEdit/></IconButton>
+                    <IconButton onClick={setEdit} color='primary' sx={{width: '40px', height: '40px'}}><FaEdit/></IconButton>
                 </Stack>
                 <Stack spacing={'10px'}>
                     <Typography variant='h6' fontWeight={'Bold'}>Dados do cliente</Typography>  

@@ -25,8 +25,8 @@ function Timeline({ data }) {
                         overflowY: 'scroll',
                     }}
                 >
-                    {data.map((item, index) => (
-                        <Card sx={{ p: 2, m: 1 }} variant='outlined'>
+                    {data.map((item, key) => (
+                        <Card key={key} sx={{ p: 2, m: 1 }} variant='outlined'>
                             <Typography fontSize={'0.8rem'} fontWeight={'Bold'}>
                                 {!isNaN(item.prev_status) ? StatusList[item.prev_status] : item.prev_status}
                                 <FaAngleDoubleRight size={'12px'} style={{margin: '0 5px'}}/>

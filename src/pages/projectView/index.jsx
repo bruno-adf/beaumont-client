@@ -1,17 +1,36 @@
 import React, { useEffect } from 'react'
-import DadosCliente from './DadosCliente'
-import DadosProjeto from './DadosProjeto'
 import { Container, Stack, useMediaQuery, useTheme, Skeleton } from '@mui/material'
-import Custos from './Custos'
-import Timeline from './Timeline'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import Insumos from './insumos/Insumos'
-import NavBar from 'components/NavBar'
-import { getProjeto } from 'api/projetos'
+import { getProjeto } from 'services/projetos'
 import { useParams } from 'react-router-dom'
 
+import DadosClientePresentation from '../../components/projectview/DadosCliente'
+import DadosClienteContainer from '../../components/projectview/DadosCliente/container.jsx'
+
+import DadosProjetoPresentation from '../../components/projectview/DadosProjeto'
+import DadosProjetoContainer from '../../components/projectview/DadosProjeto/container.jsx'
+
+import CustosPresentation from '../../components/projectview/Custos'
+import CustosContainer from '../../components/projectview/Custos/container.jsx'
+
+import TimelinePresentation from '../../components/projectview/Timeline'
+import TimelineContainer from '../../components/projectview/Timeline/container.jsx'
+
+import InsumosPresentation from '../../components/projectview/Insumos'
+import InsumosContainer from '../../components/projectview/Insumos/container.jsx'
+
+import NavBarPresentation from 'components/common/Navbar'
+import NavBarContainer from 'components/common/Navbar/container.jsx'
+
 function Index() {
+
+    const DadosCliente = DadosClienteContainer(DadosClientePresentation)
+    const DadosProjeto = DadosProjetoContainer(DadosProjetoPresentation)
+    const Custos = CustosContainer(CustosPresentation)
+    const Timeline = TimelineContainer(TimelinePresentation)
+    const Insumos = InsumosContainer(InsumosPresentation)
+    const NavBar = NavBarContainer(NavBarPresentation)
 
     const { id } = useParams()
     const project = useSelector((state) => state.data.project)
@@ -35,7 +54,7 @@ function Index() {
                     <Stack direction='row' spacing={2} sx={{ width: '100%' }}>
                         <Stack spacing={2} sx={{ mb: 2, flexGrow: 1, maxWidth: '568px' }}>
                             <DadosCliente data={project.dadosCliente} projectId={project._id} />
-                            <Custos data={project.custos} projectId={project._id} />
+                            <Custos data={project.custos}/>
                         </Stack>
                         <Stack spacing={2} sx={{ flexGrow: 1, maxWidth: '568px' }}>
                             <DadosProjeto data={project.dadosProjeto} projectId={project._id} />

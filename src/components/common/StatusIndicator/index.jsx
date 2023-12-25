@@ -3,7 +3,7 @@ import { Box, Menu, MenuItem, Chip } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { set } from 'state/dataSlice'
 import StatusList from 'StatusList'
-import { updateStatus } from 'api/dadosprojeto'
+import { updateStatus } from 'services/dadosprojeto'
 
 function StatusIndicator(props) {
 

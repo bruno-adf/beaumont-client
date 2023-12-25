@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setLogin } from 'state/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { login } from 'api/auth'
+import { login } from 'services/auth'
 
 function LoginForm() {
 

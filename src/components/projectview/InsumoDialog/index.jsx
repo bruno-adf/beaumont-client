@@ -1,9 +1,9 @@
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Stack, CircularProgress } from '@mui/material'
-import { criarInsumo, updateInsumo } from 'api/insumos'
+import { criarInsumo, updateInsumo } from 'services/insumos'
 import { Formik, Form, Field } from 'formik'
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import CashField from 'components/CashField'
+import CashField from 'components/common/CashField'
 
 function InsumoDialog({ open, edit, handleClose }) {
     
